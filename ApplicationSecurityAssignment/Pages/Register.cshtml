@@ -1,0 +1,193 @@
+﻿@page
+@model ApplicationSecurityAssignment.Pages.RegisterModel
+@{
+    ViewData["Title"] = "Register";
+}
+
+<style>
+    .form-container {
+        padding: 20px;
+        max-width: 500px;
+        margin: 0 auto;
+    }
+    .form-container label {
+        font-weight: 600;
+        font-size: 18px;
+        margin-left: 4px;
+    }
+    .form-container .radio-label {
+        font-weight: 400;
+        font-size: 16px;
+        margin-left: 5px;
+    }
+    input[type="radio"],
+    .form-container .radio-label {
+        cursor: pointer;
+    }
+    .form-container input[type="text"],
+    .form-container input[type="email"],
+    .form-container input[type="password"],
+    .form-container textarea {
+        outline: none;
+        border: 1px solid grey;
+        padding: 5px;
+        border-radius: 5px;
+    }
+    .form-container .profile-picture {
+        display: none;
+        width: 200px;
+        height: 200px;
+        object-fit: cover;
+    }
+</style>
+
+<script>
+    function displayImage(event) {
+        var reader = new FileReader();
+        reader.onload = () => {
+            var output = document.getElementById("preview");
+            output.src = reader.result;
+            output.style.display = "block";
+        };
+        reader.readAsDataURL(event.target.files[0]);
+    }
+    function formatNumbers(input) {
+        var numbers = input.value.replace(/\D/g, "");
+        var formattedNumber = "";
+        for (var i = 0; i < numbers.length; i++) {
+            if (i > 0 && i % 4 == 0) {
+                formattedNumber += " ";
+            }
+            formattedNumber += numbers[i];
+        }
+        input.value = formattedNumber;
+    }
+</script>
+
+@using AspNetCore.ReCaptcha
+@Html.ReCaptcha()
+
+<div class="container">
+    <h3 class="text-center">Register</h3>
+    <div class="form-container">
+        <form method="post" enctype="multipart/form-data">
+            <div class="mb-3">
+                <label asp-for="RegisterViewModel.Photo"></label>
+                <img id="preview" src="#" alt="Preview" class="profile-picture mb-2 rounded-2" />
+                <div class="d-flex flex-column">
+                    <input type="file" asp-for="RegisterViewModel.Photo" accept=".jpg" onchange="displayImage(event)" />
+                    <span asp-validation-for="RegisterViewModel.Photo" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="mb-3">
+                <label asp-for="RegisterViewModel.Name"></label>
+                <div class="d-flex flex-column">
+                    <input asp-for="RegisterViewModel.Name" placeholder="John Doe" />
+                    <span asp-validation-for="RegisterViewModel.Name" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="mb-3">
+                <label asp-for="RegisterViewModel.Email"></label>
+                <div class="d-flex flex-column">
+                    <input asp-for="RegisterViewModel.Email" placeholder="john.doe@gmail.com" />
+                    <span asp-validation-for="RegisterViewModel.Email" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="mb-3">
+                <label asp-for="RegisterViewModel.PhoneNumber"></label>
+                <div class="d-flex flex-column">
+                    <input asp-for="RegisterViewModel.PhoneNumber" placeholder="8123 4567" oninput="formatNumbers(this)" maxlength="9" />
+                    <span asp-validation-for="RegisterViewModel.PhoneNumber" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="mb-3">
+                <label asp-for="RegisterViewModel.Gender"></label>
+                <div class="d-flex flex-column">
+                    <div class="d-flex align-items-center flex-row">
+                        <input type="radio" asp-for="RegisterViewModel.Gender" value="Male" id="maleRadio" />
+                        <label for="maleRadio" class="radio-label"> Male </label>
+                    </div>
+                    <div class="d-flex align-items-center flex-row">
+                        <input type="radio" asp-for="RegisterViewModel.Gender" value="Female" id="femaleRadio" />
+                        <label for="femaleRadio" class="radio-label"> Female </label>
+                    </div>
+                    <div class="d-flex align-items-center flex-row">
+                        <input type="radio" asp-for="RegisterViewModel.Gender" value="Others" id="othersRadio" />
+                        <label for="othersRadio" class="radio-label"> Others </label>
+                    </div>
+                    <span asp-validation-for="RegisterViewModel.Gender" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="mb-3">
+                <label asp-for="RegisterViewModel.CreditCard"></label>
+                <div class="d-flex flex-column">
+                    <input asp-for="RegisterViewModel.CreditCard" placeholder="1234 5678 9876 5432" oninput="formatNumbers(this)" maxlength="19" />
+                    <span asp-validation-for="RegisterViewModel.CreditCard" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="mb-3">
+                <label asp-for="RegisterViewModel.Address"></label>
+                <div class="d-flex flex-column">
+                    <input asp-for="RegisterViewModel.Address" placeholder="Crocodile House 3 Ubi Avenue 3 #04-01 609731" />
+                    <span asp-validation-for="RegisterViewModel.Address" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="mb-3">
+                <label asp-for="RegisterViewModel.AboutMe"></label>
+                <div class="d-flex flex-column">
+                    <textarea asp-for="RegisterViewModel.AboutMe" style="resize:none; height: 200px;" maxlength="500" placeholder="Tell us about yourself"></textarea>
+                    <span asp-validation-for="RegisterViewModel.AboutMe" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="mb-3">
+                <label asp-for="RegisterViewModel.Password"></label>
+                <div class="d-flex flex-column">
+                    <input asp-for="RegisterViewModel.Password" type="password" id="passwordInput" />
+                    <span asp-validation-for="RegisterViewModel.Password" class="text-danger"></span>
+                    <span id="pwdLength" style="color:red;font-size:14px;font-style:italic">Must be at least 12 characters</span>
+                    <span id="pwdLower" style="color:red;font-size:14px;font-style:italic">Must have at least 1 lower-case character</span>
+                    <span id="pwdUpper" style="color:red;font-size:14px;font-style:italic">Must have at least 1 upper-case characters</span>
+                    <span id="pwdNumber" style="color:red;font-size:14px;font-style:italic">Must have at least 1 number</span>
+                    <span id="pwdSpecial" style="color:red;font-size:14px;font-style:italic">Must have at least 1 special character</span>
+                </div>
+            </div>
+            <div class="mb-3">
+                <label asp-for="RegisterViewModel.ConfirmPassword"></label>
+                <div class="d-flex flex-column">
+                    <input asp-for="RegisterViewModel.ConfirmPassword" type="password" />
+                    <span asp-validation-for="RegisterViewModel.ConfirmPassword" class="text-danger"></span>
+                </div>
+            </div>
+            <button type="submit" class="btn btn-primary">Register</button>
+        </form>
+    </div>
+</div>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        var passwordInput = document.getElementById("passwordInput")
+        var passwordLength = document.getElementById("pwdLength")
+        var passwordLower = document.getElementById("pwdLower")
+        var passwordUpper = document.getElementById("pwdUpper")
+        var passwordNumber = document.getElementById("pwdNumber")
+        var passwordSpecial = document.getElementById("pwdSpecial")
+
+        passwordInput.addEventListener("input", function () {
+            var password = this.value;
+            if (password.length >= 12) passwordLength.style.color = "green";
+            else passwordLength.style.color = "red";
+
+            if (/[a-z]/.test(password)) passwordLower.style.color = "green";
+            else passwordLower.style.color = "red"
+
+            if (/[A-Z]/.test(password)) passwordUpper.style.color = "green";
+            else passwordUpper.style.color = "red"
+
+            if (/\d/.test(password)) passwordNumber.style.color = "green";
+            else passwordNumber.style.color = "red";
+
+            if (/[\!\._]/.test(password)) passwordSpecial.style.color = "green";
+            else passwordSpecial.style.color = "red";
+        })
+    })
+</script>

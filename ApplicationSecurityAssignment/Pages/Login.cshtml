@@ -1,0 +1,61 @@
+﻿@page
+@model ApplicationSecurityAssignment.Pages.LoginModel
+@{
+}
+
+<style>
+    .form-container {
+        padding: 20px;
+        max-width: 500px;
+        margin: 0 auto;
+    }
+
+    .form-container label {
+         font-weight: 600;
+         font-size: 18px;
+         margin-left: 4px;
+    }
+
+     .form-container .checkbox-label {
+         font-weight: 400;
+         font-size: 16px;
+         margin-left: 5px;
+     }
+
+     .form-container input[type="text"],
+     .form-container input[type="email"],
+     .form-container input[type="password"] {
+         outline: none;
+         border: 1px solid grey;
+         padding: 5px;
+         border-radius: 5px;
+     }
+</style>
+
+@using AspNetCore.ReCaptcha
+@Html.ReCaptcha()
+
+<div class="container">
+    <h3 class="text-center">Login</h3>
+    <div class="form-container">
+        <form method="post" enctype="multipart/form-data">
+            <recaptcha />
+            <div class="mb-3">
+                <label asp-for="LoginViewModel.Email"></label>
+                <div class="d-flex flex-column">
+                    <input asp-for="LoginViewModel.Email" />
+                    <span asp-validation-for="LoginViewModel.Email" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="mb-3">
+                <label asp-for="LoginViewModel.Password"></label>
+                <div class="d-flex flex-column">
+                    <input asp-for="LoginViewModel.Password" type="password" />
+                    <span asp-validation-for="LoginViewModel.Password" class="text-danger"></span>
+                </div>
+            </div>
+            <button type="submit" class="btn btn-primary">Login</button>
+        </form>
+        <a href="/reset">Reset Password</a>
+    </div>
+</div>

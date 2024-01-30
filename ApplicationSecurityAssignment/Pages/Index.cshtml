@@ -1,0 +1,47 @@
+﻿@page
+@model IndexModel
+@{
+    ViewData["Title"] = "Home page";
+}
+
+@using Microsoft.AspNetCore.Identity
+@using ApplicationSecurityAssignment.Models
+@inject SignInManager<Member> SignInManager
+
+@if(TempData["SuccessMessage"] != null)
+{
+    <script>
+        window.onload = function() {
+            alert('@TempData["SuccessMessage"]')
+        }
+    </script>
+}
+
+<div class="text-center">
+    <h1 class="display-4">Welcome</h1>
+    @{
+        if (SignInManager.IsSignedIn(User))
+        {
+            <form method="post" asp-page-handler="Logout">
+                @Html.AntiForgeryToken()
+                <button type="submit" class="btn btn-primary">Logout</button>
+            </form>
+        }
+    }
+    @{
+        if (SignInManager.IsSignedIn(User))
+        {
+            <img src="data:image/jpeg;base64,@Model.PhotoBase64" alt="Photo" style="object-fit:contain;max-width:125px;max-height:125px;padding-top:5px;" />
+            <p><strong>Name:</strong></p>
+            <p>@Model.CurrentMember.Name</p>
+            <p><strong>Email:</strong></p>
+            <p>@Model.CurrentMember.UserName</p>
+            <p><strong>Address:</strong></p>
+            <p>@Model.CurrentMember.Address</p>
+            <p><strong>Credit Card Number:</strong></p>
+            <p>@Model.DecryptedCreditCardNumber</p>
+            <p><strong>About Me:</strong></p>
+            <p>@Model.CurrentMember.AboutMe</p>
+        }
+    }
+</div>
