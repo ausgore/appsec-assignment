@@ -19,6 +19,11 @@ builder.Services.AddIdentity<Member, IdentityRole>(options =>
     .AddDefaultTokenProviders()
     .AddEntityFrameworkStores<AuthDbContext>();
 
+builder.Services.AddMvc().AddRazorPagesOptions(opt =>
+{
+    opt.Conventions.AddPageRoute("/NotFound", "/{**catchall}");
+});
+
 builder.Services.Configure<IdentityOptions>(options =>
 {
     options.Password.RequireDigit = true;
@@ -63,3 +68,4 @@ app.UseAuthorization();
 app.MapRazorPages();
 
 app.Run();
+    

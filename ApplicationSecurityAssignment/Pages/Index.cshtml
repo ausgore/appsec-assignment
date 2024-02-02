@@ -8,15 +8,6 @@
 @using ApplicationSecurityAssignment.Models
 @inject SignInManager<Member> SignInManager
 
-@if(TempData["SuccessMessage"] != null)
-{
-    <script>
-        window.onload = function() {
-            alert('@TempData["SuccessMessage"]')
-        }
-    </script>
-}
-
 <div class="text-center">
     <h1 class="display-4">Welcome</h1>
     @{

@@ -156,3 +156,4 @@ C:\Users\Glenn\Documents\GitHub\appsec-assignment\ApplicationSecurityAssignment\
 C:\Users\Glenn\Documents\GitHub\appsec-assignment\ApplicationSecurityAssignment\obj\Debug\net8.0\ApplicationSecurityAssignment.pdb
 C:\Users\Glenn\Documents\GitHub\appsec-assignment\ApplicationSecurityAssignment\obj\Debug\net8.0\ApplicationSecurityAssignment.genruntimeconfig.cache
 C:\Users\Glenn\Documents\GitHub\appsec-assignment\ApplicationSecurityAssignment\obj\Debug\net8.0\ref\ApplicationSecurityAssignment.dll
+C:\Users\Glenn\Documents\GitHub\appsec-assignment\ApplicationSecurityAssignment\obj\Debug\net8.0\ApplicationSecurityAssignment.sourcelink.json

@@ -36,7 +36,6 @@ namespace ApplicationSecurityAssignment.Pages
                     if (user != null)
                     {
                         await auditLogService.LogLoginAsync(user.Id);
-                        TempData["SuccessMessage"] = "Login Successful";
                         return RedirectToPage("Index");
                     }
                 }

@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("ApplicationSecurityAssignment")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+9769cd37425265c9c52178a3d8af9f9dd8163941")]
 [assembly: System.Reflection.AssemblyProductAttribute("ApplicationSecurityAssignment")]
 [assembly: System.Reflection.AssemblyTitleAttribute("ApplicationSecurityAssignment")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

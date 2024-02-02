@@ -42,9 +42,10 @@ namespace ApplicationSecurityAssignment.Pages
                 var user = await userManager.FindByEmailAsync(email!);
 
                 var passwordHistory = passwordHistoryService.GetRecentPasswordHistories(user!.Id);
-                if ((DateTime.Now - passwordHistory.First().Timestamp).TotalMinutes < 2)
+                if ((DateTime.Now - passwordHistory.First().Timestamp).TotalMinutes < 2 && passwordHistory.Count != 1)
                 {
-                    ModelState.AddModelError("ResetPasswordViewModel.Password", "You're changing your password too quickly. Please wait for at least 2 minutes before changing it again.");
+                    ModelState.AddModelError("ResetPasswordViewModel.Password", 
+                        "You're changing your password too quickly. Please wait for at least 2 minutes before changing it again.");
                     return Page();
                 }
 
@@ -62,7 +63,8 @@ namespace ApplicationSecurityAssignment.Pages
 
                 if (isPasswordMatched)
                 {
-                    ModelState.AddModelError("ResetPasswordViewModel.Password", "You cannot reuse passwords that you've used in your last two password changes. Please choose a new and unique password.");
+                    ModelState.AddModelError("ResetPasswordViewModel.Password", 
+                        "You cannot reuse passwords that you've used in your last two password changes. Please choose a new and unique password.");
                     return Page();
                 }
 
